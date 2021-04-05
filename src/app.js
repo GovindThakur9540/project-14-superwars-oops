@@ -26,7 +26,12 @@ class Player {
     constructor(id, name, type) {
         // Create member variables and assign values
         // Type your code
-
+        
+        this.id = id+1;
+        this.name = name;
+        this.strength = this.getRandomStrength();
+        this.image = `images/super-${this.id}.png`;
+        this.type = type;
     }
 
     // getting random strength
@@ -38,9 +43,18 @@ class Player {
     view = () => {
         // Accumulate HTML template
         // Type your code here
+        let html = '';
+        const div = document.createElement("div");
+        div.className = "player";
+        div.setAttribute("data-id", this.id+1);
 
+        html += `<img src="`+this.image+`">`;
+        html += '<div class = "Name">'+ this.name + `</div>`
+        console.log(this.strength)
+        html += `<div class="strength">` + this.strength + `</div>`;
+        div.innerHTML = html;
     
-        return player;
+        return div;
     }
 }
 
@@ -50,7 +64,11 @@ class Superwar {
     // Create a field players 
     // Use Map method to loop through players argument and create new players
     // Type your code here
-
+        this.players = players.map((player, id)=>{
+            console.log(id);
+            let type = id % 2 == 0? 'hero':'villain';
+            return new Player(id, player, type);
+        });
     }
 
     // Display players in HTML
